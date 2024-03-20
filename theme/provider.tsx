@@ -4,9 +4,9 @@ import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import { lightTheme, darkTheme } from './theme'
 
-interface MUIThemeProps extends PropsWithChildren {}
+interface Props extends PropsWithChildren {}
 
-export function MUITheme(props: Readonly<MUIThemeProps>) {
+export function MuiProvider(props: Readonly<Props>) {
   const [theme, setTheme] = useState(darkTheme)
   const isDarkTheme = theme.palette.mode === 'dark'
 

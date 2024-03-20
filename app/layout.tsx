@@ -1,21 +1,21 @@
 import { PropsWithChildren } from 'react'
 import type { Metadata } from 'next'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import { MUITheme } from '~/theme'
+import { MuiProvider } from '~/theme'
 
 export const metadata: Metadata = {
   title: 'DualEntry',
   description: 'The future of accounting',
 }
 
-interface RootLayoutProps extends PropsWithChildren {}
+interface Props extends PropsWithChildren {}
 
-export default function RootLayout(props: Readonly<RootLayoutProps>) {
+export default function RootLayout(props: Readonly<Props>) {
   return (
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <MUITheme>{props.children}</MUITheme>
+          <MuiProvider>{props.children}</MuiProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
