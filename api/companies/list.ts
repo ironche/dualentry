@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 
-const companiesList = gql`
+const query = gql`
   query companies {
     companies(limit: 10) {
       id
@@ -19,5 +19,5 @@ interface Result {
 }
 
 export function useCompaniesList() {
-  return useQuery<Result>(companiesList)
+  return useQuery<Result>(query)
 }

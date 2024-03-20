@@ -1,4 +1,5 @@
-CREATE TABLE companies(id SERIAL PRIMARY KEY, name varchar(256) NOT NULL, location varchar(256));
+CREATE TABLE companies(id SERIAL PRIMARY KEY, name VARCHAR(256) NOT NULL, location VARCHAR(256));
+
 
 INSERT INTO companies (name, location) VALUES
 ('3M Company', 'Minnesota'),
@@ -157,7 +158,9 @@ INSERT INTO companies (name, location) VALUES
 ('Duke Energy', 'North Carolina'),
 ('Duke Realty Corp', 'Indiana');
 
-CREATE TABLE clients(id SERIAL PRIMARY KEY, first_name varchar(256), last_name varchar(256), companyid INT NOT NULL, FOREIGN KEY(companyid) REFERENCES companies(id));
+
+CREATE TABLE clients(id SERIAL PRIMARY KEY, first_name VARCHAR(256), last_name VARCHAR(256), companyid INT NOT NULL, FOREIGN KEY(companyid) REFERENCES companies(id));
+
 
 INSERT INTO clients (first_name, last_name, companyid)
 SELECT DISTINCT
@@ -170,6 +173,25 @@ SELECT DISTINCT
     generate_series(1, 50);
 
 
+CREATE TABLE invoices(id SERIAL PRIMARY KEY, issue_date DATE NOT NULL DEFAULT CURRENT_DATE, due_date DATE NOT NULL DEFAULT CURRENT_DATE, transaction VARCHAR(64), total DECIMAL(10, 6), currency CHAR(3), exchange DECIMAL(10, 6), clientid INT NOT NULL, FOREIGN KEY(clientid) REFERENCES clients(id));
 
--- DROP TABLE companies;
+
+INSERT INTO invoices (issue_date, due_date, transaction, total, currency, exchange, clientid)
+SELECT
+    CURRENT_DATE - INTERVAL '10 days' * random() AS issue_date,
+    CURRENT_DATE + INTERVAL '20 days' * random() AS due_date,
+    CONCAT('I-', LPAD(floor(random() * 100000)::TEXT, 6, '0')) AS transaction,
+    ROUND(cast(random() * 1000 as numeric), 2) AS total,
+    CASE
+        WHEN random() < 0.5 THEN 'USD'
+        ELSE 'EUR'
+    END AS currency,
+    ROUND(cast(random() * 2 as numeric), 6) AS exchange,
+    (random() * 49 + 1)::INT AS clientid
+  FROM
+    generate_series(1, 300) AS id;
+
+
+-- DROP TABLE invoices;
 -- DROP TABLE clients;
+-- DROP TABLE companies;
