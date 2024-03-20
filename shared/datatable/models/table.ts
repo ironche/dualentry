@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 
-export interface DataTableCol<T> {
+export interface DataTableCol {
   headerName: string;
-  field: keyof T;
+  field: string;
   renderHeader?: (headerName: string) => ReactNode;
-  renderCell?: (cellValue: any, rowValue?: T) => ReactNode;
+  renderCell?: (cellValue: any, rowValue?: any) => ReactNode;
 }
 
 export interface DataTableRow extends Record<string, any> {

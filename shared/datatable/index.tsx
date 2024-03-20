@@ -20,7 +20,7 @@ const TotalRows = styled('div')(({ theme }) => ({
 }))
 
 export interface DataTableProps {
-  cols: DataTableCol<any>[]
+  cols: DataTableCol[]
   rows: DataTableRow[]
   totalRows: number
   isLoading?: boolean

@@ -1,6 +1,6 @@
 'use client'
 import { styled } from '@mui/material/styles'
-import { Breadcrumbs, Typography, Button } from '@mui/material'
+import { Breadcrumbs, Typography, Button, Checkbox } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { useInvoicesList, Invoice } from '~/api'
 import { DataTable, DataTableCol } from '~/shared/datatable'
@@ -21,10 +21,28 @@ const AlignRightCell = styled('div')`
 export default function Home() {
   const { data, loading, error } = useInvoicesList(10, 0)
 
-  const columnDefs: DataTableCol<Invoice>[] = [
+  const columnDefs: DataTableCol[] = [
     {
       field: 'id',
       headerName: 'ID',
+      renderHeader(headerName) {
+        return (
+          <Checkbox
+            checked={false}
+            onChange={() => {}}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+        )
+      },
+      renderCell(cellValue) {
+        return (
+          <Checkbox
+            checked={false}
+            onChange={() => {}}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+        )
+      },
     },
     {
       field: 'issue_date',

@@ -18,7 +18,7 @@ const TableCell = styled(MuiTableCell)`
 `
 
 export interface TableDataProps {
-  cols: DataTableCol<any>[]
+  cols: DataTableCol[]
   rows: DataTableRow[]
   rowSize?: TableRowSize
 }
