@@ -1,11 +1,6 @@
 import { styled } from '@mui/material/styles'
-import { Table, TableBody, TableCell as MuiTableCell, TableContainer as MuiTableContainer, TableHead, TableRow } from '@mui/material'
+import { Table, TableBody, TableCell as MuiTableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { DataTableCol, DataTableRow, TableRowSize } from '../models/table'
-
-const TableContainer = styled(MuiTableContainer)({
-  width: 'auto',
-  padding: '0 20px',
-})
 
 const TableCell = styled(MuiTableCell)`
   &.MuiTableCell-root {
@@ -23,7 +18,7 @@ const TableCell = styled(MuiTableCell)`
 `
 
 export interface TableDataProps {
-  cols: DataTableCol<unknown>[]
+  cols: DataTableCol<any>[]
   rows: DataTableRow[]
   rowSize?: TableRowSize
 }

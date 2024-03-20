@@ -9,6 +9,10 @@ const roboto = Roboto({
 export const lightTheme = createTheme({
   palette: {
     mode: 'light',
+    background: {
+      default: '#f5f5f5',
+      paper: '#ffffff',
+    }
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
@@ -18,6 +22,10 @@ export const lightTheme = createTheme({
 export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    background: {
+      default: '#121212',
+      paper: '#1e1e1e',
+    }
   },
   typography: {
     fontFamily: roboto.style.fontFamily,

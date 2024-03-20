@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, ReactNode } from 'react'
 import { styled } from '@mui/material/styles'
-import { Typography, IconButton, TextField, InputAdornment, Collapse } from '@mui/material'
+import { IconButton, TextField, InputAdornment, Collapse } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { useToggle } from '~/shared/hooks'
@@ -21,13 +21,6 @@ const FiltersSection = styled('section')({
   flex: '1 0 100%',
   padding: '16px 20px 16px 0',
 })
-
-const Title = styled(Typography)(({ theme }) => ({
-  flexGrow: 1,
-  fontWeight: 600,
-  fontSize: 18,
-  color: theme.palette.text.secondary,
-}))
 
 export interface TableHeaderProps {
   headerToolbar?: ReactNode

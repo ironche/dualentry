@@ -20,6 +20,7 @@ export const HeaderIcon = styled(DescriptionOutlinedIcon)`
   margin: 0 -8px;
 `
 
-export const Wrapper = styled('section')`
-  padding: 0 32px;
-`
+export const Wrapper = styled('section')(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  padding: '0 32px',
+}))

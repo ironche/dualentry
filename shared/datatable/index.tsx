@@ -13,13 +13,14 @@ const DataTableWrapper = styled('section')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }))
 
-const TotalRows = styled('footer')`
-  padding: 8px 0;
-  text-align: right;
-`
+const TotalRows = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  padding: '8px 0',
+  textAlign: 'right',
+}))
 
 export interface DataTableProps {
-  cols: DataTableCol<unknown>[]
+  cols: DataTableCol<any>[]
   rows: DataTableRow[]
   totalRows: number
   isLoading?: boolean
