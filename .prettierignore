@@ -1,0 +1,6 @@
+.next
+.vercel
+.vscode
+node_modules
+next.config.mjs
+package-lock.json
