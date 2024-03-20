@@ -1,6 +1,10 @@
+'use client'
 import Image from 'next/image'
+import { useCompaniesList } from '~/api'
 
 export default function Home() {
+  const { data, loading, error } = useCompaniesList()
+
   return (
     <main>
       Hello
