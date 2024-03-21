@@ -16,7 +16,7 @@ const DataTableWrapper = styled('section')(({ theme }) => ({
 const TotalRows = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   padding: '8px 0',
-  height: 32,
+  height: 24,
   textAlign: 'right',
 }))
 

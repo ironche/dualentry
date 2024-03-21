@@ -2,6 +2,7 @@ import { useState, ChangeEvent } from 'react'
 import { styled } from '@mui/material/styles'
 import { IconButton, TextField, InputAdornment, Button } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
+import DateRangeIcon from '@mui/icons-material/DateRange'
 import FunctionsOutlinedIcon from '@mui/icons-material/FunctionsOutlined'
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
@@ -20,6 +21,15 @@ const HeaderContainer = styled('header')(({ theme }) => ({
   padding: '10px 0',
 }))
 
+const HeaderGroup = styled('div')`
+  display: flex;
+  flex-grow: 1;
+`
+
+const HeaderRightGroup = styled(HeaderGroup)`
+  justify-content: flex-end;
+`
+
 export interface TableHeaderProps {
   onSearch?: (term: string) => void
 }
@@ -37,7 +47,7 @@ export function TableHeader(props: TableHeaderProps) {
 
   return (
     <HeaderContainer>
-      <span>
+      <HeaderGroup>
         <TextField
           value={searchTerm}
           onChange={handleSearchChange}
@@ -50,8 +60,20 @@ export function TableHeader(props: TableHeaderProps) {
             ),
           }}
         />
-      </span>
-      <span>
+        <TextField
+          disabled
+          placeholder="Date range"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <DateRangeIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </HeaderGroup>
+
+      <HeaderGroup>
         <IconButton size="large">
           <FunctionsOutlinedIcon />
         </IconButton>
@@ -67,8 +89,9 @@ export function TableHeader(props: TableHeaderProps) {
         <IconButton size="large">
           <ViewWeekOutlinedIcon />
         </IconButton>
-      </span>
-      <span>
+      </HeaderGroup>
+
+      <HeaderRightGroup>
         <Button
           variant="text"
           color="error"
@@ -76,7 +99,7 @@ export function TableHeader(props: TableHeaderProps) {
         >
           Delete
         </Button>
-      </span>
+      </HeaderRightGroup>
     </HeaderContainer>
   )
 }
