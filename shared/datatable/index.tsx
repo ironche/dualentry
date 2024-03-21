@@ -26,8 +26,6 @@ export interface DataTableProps {
   isLoading?: boolean
   rowSize?: TableRowSize
   title?: string | null
-  headerToolbar?: ReactNode
-  filterToolbar?: ReactNode
   onSearch?: (term: string) => void
   onSetPage?: (value: number) => void
 }
@@ -61,8 +59,6 @@ export function DataTable(props: DataTableProps) {
   return (
     <DataTableWrapper>
       <TableHeader
-        headerToolbar={props.headerToolbar}
-        filterToolbar={props.filterToolbar}
         onSearch={(value) => {
           props.onSearch?.(value)
           resetPage()
