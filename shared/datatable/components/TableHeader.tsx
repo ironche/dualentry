@@ -1,36 +1,30 @@
-import { useState, ChangeEvent, ReactNode } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { styled } from '@mui/material/styles'
-import { IconButton, TextField, InputAdornment, Collapse } from '@mui/material'
+import { IconButton, TextField, InputAdornment, Button } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
-import FilterListIcon from '@mui/icons-material/FilterList'
-import { useToggle } from '~/shared/hooks'
+import FunctionsOutlinedIcon from '@mui/icons-material/FunctionsOutlined'
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined'
+import ViewWeekOutlinedIcon from '@mui/icons-material/ViewWeekOutlined'
+import DeleteIcon from '@mui/icons-material/Delete'
 
-const HeaderContainer = styled('header')({
+const HeaderContainer = styled('header')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'center',
-})
-
-const ToolbarSection = styled('section')({
-  display: 'flex',
-  alignItems: 'center',
+  backgroundColor: theme.palette.background.default,
+  borderBottom: `1px solid ${theme.palette.divider}`,
   gap: 10,
-})
-
-const FiltersSection = styled('section')({
-  flex: '1 0 100%',
-  padding: '16px 20px 16px 0',
-})
+  justifyContent: 'space-between',
+  padding: '10px 0',
+}))
 
 export interface TableHeaderProps {
-  headerToolbar?: ReactNode
-  filterToolbar?: ReactNode
   onSearch?: (term: string) => void
 }
 
 export function TableHeader(props: TableHeaderProps) {
-  const [areFiltersVisible, toggleFiltersVisibility] = useToggle(true)
-  const [isSearchVisible, toggleSearchVisibility] = useToggle(true)
   const [searchTerm, setSearchTerm] = useState('')
 
   function handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
@@ -43,50 +37,46 @@ export function TableHeader(props: TableHeaderProps) {
 
   return (
     <HeaderContainer>
-      <ToolbarSection>
-        <div>{props.headerToolbar}</div>
-
-        {isSearchVisible && (
-          <TextField
-            value={searchTerm}
-            onChange={handleSearchChange}
-            size="small"
-            placeholder="Search"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        )}
-        <IconButton
-          color={isSearchVisible ? 'primary' : 'default'}
-          onClick={toggleSearchVisibility}
-          size="large"
-        >
-          <SearchIcon />
+      <span>
+        <TextField
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search & filter"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </span>
+      <span>
+        <IconButton size="large">
+          <FunctionsOutlinedIcon />
         </IconButton>
-        <IconButton
-          color={areFiltersVisible ? 'primary' : 'default'}
-          onClick={toggleFiltersVisibility}
-          disabled={!props.filterToolbar}
-          size="large"
-        >
-          <FilterListIcon />
+        <IconButton size="large">
+          <AttachMoneyOutlinedIcon />
         </IconButton>
-      </ToolbarSection>
-
-      <FiltersSection>
-        <Collapse
-          in={areFiltersVisible}
-          timeout="auto"
-          unmountOnExit
+        <IconButton size="large">
+          <InfoOutlinedIcon />
+        </IconButton>
+        <IconButton size="large">
+          <ScheduleOutlinedIcon />
+        </IconButton>
+        <IconButton size="large">
+          <ViewWeekOutlinedIcon />
+        </IconButton>
+      </span>
+      <span>
+        <Button
+          variant="text"
+          color="error"
+          startIcon={<DeleteIcon />}
         >
-          {props.filterToolbar}
-        </Collapse>
-      </FiltersSection>
+          Delete
+        </Button>
+      </span>
     </HeaderContainer>
   )
 }

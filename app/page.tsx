@@ -1,7 +1,6 @@
 'use client'
 import { Breadcrumbs, Typography, Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import DeleteIcon from '@mui/icons-material/Delete'
 import { useInvoicesList } from '~/api'
 import { DataTable } from '~/shared/datatable'
 import { LoadingIndicator, Header, HeaderIcon, Wrapper } from './_components/page-fragments'
@@ -13,7 +12,10 @@ export default function Home() {
 
   return (
     <main>
-      <LoadingIndicator loading={loading} />
+      <LoadingIndicator
+        color="inherit"
+        loading={loading}
+      />
       <Header>
         <div>
           <Breadcrumbs aria-label="breadcrumb">
@@ -38,7 +40,7 @@ export default function Home() {
           cols={columnDefs}
           rows={data?.invoices ?? []}
           totalRows={data?.invoices_aggregate.aggregate?.count ?? 0}
-          isLoading={loading}
+          isLoading={false}
           rowSize="small"
         />
       </Wrapper>

@@ -4,7 +4,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 
 const TableContainer = styled('div')`
   padding: 30px;
-  textalign: 'center';
+  text-align: center;
 `
 
 const ErrorIcon = styled(ErrorOutlineIcon)`

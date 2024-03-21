@@ -31,7 +31,7 @@ export function ApiProvider(props: Readonly<Props>) {
   if (!apolloClient) {
     return (
       <div>
-        <LinearProgress />
+        <LinearProgress color="inherit" />
       </div>
     )
   }

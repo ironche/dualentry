@@ -11,7 +11,7 @@ export const Header = styled('header')`
   justify-content: space-between;
   align-items: center;
   padding: 8px 32px;
-  background-color: #e6fad2;
+  background-color: ${({ theme }) => (theme.palette.mode === 'light' ? '#e6fad2' : theme.palette.background.paper)};
 `
 
 export const HeaderIcon = styled(DescriptionOutlinedIcon)`

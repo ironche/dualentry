@@ -14,6 +14,7 @@ const TableCell = styled(MuiTableCell)`
   &.MuiTableCell-head {
     font-weight: 600;
     font-size: 16px;
+    background-color: ${({ theme }) => theme.palette.background.default};
   }
 `
 

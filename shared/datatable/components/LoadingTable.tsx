@@ -3,7 +3,7 @@ import { Typography, CircularProgress } from '@mui/material'
 
 const TableContainer = styled('div')`
   padding: 30px;
-  textalign: 'center';
+  text-align: center;
 `
 
 const Spinner = styled(CircularProgress)`
@@ -18,7 +18,7 @@ const Title = styled(Typography)`
 export function LoadingTable() {
   return (
     <TableContainer>
-      <Spinner color="secondary" />
+      <Spinner color="inherit" />
       <Title variant="h4">Loading table data</Title>
       <Typography variant="body2">This might take a few moments.</Typography>
     </TableContainer>
