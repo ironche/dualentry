@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles'
-import { Table, TableBody, TableCell as MuiTableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Table, TableBody, TableCell as MuiTableCell, TableContainer, TableHead, TableRow as MuiTableRow } from '@mui/material'
 import { DataTableCol, DataTableRow, TableRowSize } from '../models/table'
 
 const TableCell = styled(MuiTableCell)`
@@ -16,6 +16,15 @@ const TableCell = styled(MuiTableCell)`
     font-size: 16px;
     background-color: ${({ theme }) => theme.palette.background.default};
   }
+`
+
+const TableRow = styled(MuiTableRow)<{ isChecked?: boolean }>`
+  background-color: ${({
+    isChecked,
+    theme: {
+      palette: { mode },
+    },
+  }) => (isChecked ? (mode === 'dark' ? '#43493d' : '#e6fad2') : 'transparent')};
 `
 
 export interface TableDataProps {
@@ -39,12 +48,12 @@ export function TableData(props: TableDataProps) {
         <TableBody>
           {props.rows.map((row) => {
             const firstCol = props.cols?.[0]
-            const isChecked = firstCol?.isRowChecked?.(row[firstCol?.field])
+            const isChecked = firstCol?.isRowChecked?.(row[firstCol?.field]) ?? false
             return (
               <TableRow
                 key={row.id}
                 hover
-                sx={{ backgroundColor: isChecked ? '#e6fad2' : 'transparent' }}
+                isChecked={isChecked}
               >
                 {props.cols.map((col, i) => (
                   <TableCell key={i}>{col.renderCell ? col.renderCell(row[col.field], row) : row[col.field]}</TableCell>
