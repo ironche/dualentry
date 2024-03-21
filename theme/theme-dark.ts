@@ -36,7 +36,7 @@ const themeComponents: Components = {
         paddingLeft: 8,
       },
       notchedOutline: {
-        borderColor: 'transparent',
+        borderColor: 'transparent !important',
       },
     },
   },
