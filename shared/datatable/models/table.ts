@@ -1,17 +1,18 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 export interface DataTableCol {
-  headerName: string;
-  field: string;
-  renderHeader?: (headerName: string) => ReactNode;
-  renderCell?: (cellValue: any, rowValue?: any) => ReactNode;
+  headerName: string
+  field: string
+  renderHeader?: (headerName: string) => ReactNode
+  renderCell?: (cellValue: any, rowValue?: any) => ReactNode
+  isRowChecked?: (cellValue: any) => boolean
 }
 
 export interface DataTableRow extends Record<string, any> {
-  id: number | string;
+  id: number | string
 }
 
-export type TableRowSize = 'small' | 'medium';
+export type TableRowSize = 'small' | 'medium'
 
 export enum TableTemplate {
   LOADING,

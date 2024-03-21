@@ -36,13 +36,21 @@ export function TableData(props: TableDataProps) {
         </TableHead>
 
         <TableBody>
-          {props.rows.map((row) => (
-            <TableRow key={row.id}>
-              {props.cols.map((col, i) => (
-                <TableCell key={i}>{col.renderCell ? col.renderCell(row[col.field], row) : row[col.field]}</TableCell>
-              ))}
-            </TableRow>
-          ))}
+          {props.rows.map((row) => {
+            const firstCol = props.cols?.[0]
+            const isChecked = firstCol?.isRowChecked?.(row[firstCol?.field])
+            return (
+              <TableRow
+                key={row.id}
+                hover
+                sx={{ backgroundColor: isChecked ? '#e6fad2' : 'transparent' }}
+              >
+                {props.cols.map((col, i) => (
+                  <TableCell key={i}>{col.renderCell ? col.renderCell(row[col.field], row) : row[col.field]}</TableCell>
+                ))}
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>

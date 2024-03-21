@@ -1,125 +1,15 @@
 'use client'
-import { styled } from '@mui/material/styles'
-import { Breadcrumbs, Typography, Button, Checkbox } from '@mui/material'
+import { Breadcrumbs, Typography, Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { useInvoicesList, Invoice } from '~/api'
-import { DataTable, DataTableCol } from '~/shared/datatable'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { useInvoicesList } from '~/api'
+import { DataTable } from '~/shared/datatable'
 import { LoadingIndicator, Header, HeaderIcon, Wrapper } from './_components/page-fragments'
-
-const NoWrapCell = styled('span')`
-  white-space: nowrap;
-`
-
-const AlignCenterCell = styled('div')`
-  text-align: center;
-`
-
-const AlignRightCell = styled('div')`
-  text-align: right;
-`
+import { useColumnDefs } from './_components/column-defs'
 
 export default function Home() {
   const { data, loading, error } = useInvoicesList(10, 0)
-
-  const columnDefs: DataTableCol[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      renderHeader(headerName) {
-        return (
-          <Checkbox
-            checked={false}
-            onChange={() => {}}
-            inputProps={{ 'aria-label': 'controlled' }}
-          />
-        )
-      },
-      renderCell(cellValue) {
-        return (
-          <Checkbox
-            checked={false}
-            onChange={() => {}}
-            inputProps={{ 'aria-label': 'controlled' }}
-          />
-        )
-      },
-    },
-    {
-      field: 'issue_date',
-      headerName: 'Issue Date',
-      renderHeader(headerName) {
-        return <NoWrapCell>{headerName}</NoWrapCell>
-      },
-      renderCell(cellValue) {
-        return <NoWrapCell>{cellValue}</NoWrapCell>
-      },
-    },
-    {
-      field: 'due_date',
-      headerName: 'Due Date',
-      renderHeader(headerName) {
-        return <NoWrapCell>{headerName}</NoWrapCell>
-      },
-      renderCell(cellValue) {
-        return <NoWrapCell>{cellValue}</NoWrapCell>
-      },
-    },
-    {
-      field: 'transaction',
-      headerName: 'Transaction No.',
-      renderHeader(headerName) {
-        return <NoWrapCell>{headerName}</NoWrapCell>
-      },
-    },
-    {
-      field: 'client',
-      headerName: 'Customer',
-      renderCell(cellValue) {
-        return <NoWrapCell>{`${cellValue.first_name} ${cellValue.last_name}`}</NoWrapCell>
-      },
-    },
-    {
-      field: 'client',
-      headerName: 'Company',
-      renderCell(cellValue) {
-        return <NoWrapCell>{cellValue.company.name}</NoWrapCell>
-      },
-    },
-    {
-      field: 'total',
-      headerName: 'Total',
-      renderHeader(headerName) {
-        return <AlignRightCell>{headerName}</AlignRightCell>
-      },
-      renderCell(cellValue) {
-        return <AlignRightCell>{parseFloat(cellValue).toFixed(2)}</AlignRightCell>
-      },
-    },
-    {
-      field: 'currency',
-      headerName: 'Currency',
-      renderHeader(headerName) {
-        return <AlignCenterCell>{headerName}</AlignCenterCell>
-      },
-      renderCell(cellValue) {
-        return <AlignCenterCell>{cellValue}</AlignCenterCell>
-      },
-    },
-    {
-      field: 'exchange',
-      headerName: 'Exchange Rate',
-      renderHeader(headerName) {
-        return (
-          <AlignRightCell>
-            <NoWrapCell>{headerName}</NoWrapCell>
-          </AlignRightCell>
-        )
-      },
-      renderCell(cellValue) {
-        return <AlignRightCell>{cellValue}</AlignRightCell>
-      },
-    },
-  ]
+  const columnDefs = useColumnDefs()
 
   return (
     <main>
