@@ -1,8 +1,21 @@
 import { gql, useQuery } from "@apollo/client";
 
 const query = gql`
-  query invoices($limit: Int!, $offset: Int!) {
-    invoices(order_by: { issue_date: asc, due_date: asc }, limit: $limit, offset: $offset) {
+  query invoices($limit: Int!, $offset: Int!, $search: String!) {
+    invoices(
+      order_by: { issue_date: asc, due_date: asc },
+      limit: $limit,
+      offset: $offset,
+      where: {
+        client: {
+          _or: [
+            { first_name: { _ilike: $search } },
+            { last_name: { _ilike: $search } },
+            { company: { name: { _ilike: $search } } }
+          ]
+        }
+      }
+    ) {
       id
       issue_date
       due_date
@@ -27,7 +40,7 @@ const query = gql`
 `
 
 export interface Invoice {
-  id: string
+  id: number
   issue_date: string
   due_date: string
   transaction: string
@@ -53,13 +66,14 @@ interface Result {
 }
 
 interface Variables {
+  search: string
   limit: number
   offset: number
 }
 
-export function useInvoicesList(limit: number, offset: number) {
+export function useInvoicesList(search: string, limit: number, offset: number) {
   return useQuery<Result, Variables>(query, {
-    variables: { limit, offset },
+    variables: { search: `%${search ?? ''}%`, limit, offset },
     skip: limit < 10,
   })
 }

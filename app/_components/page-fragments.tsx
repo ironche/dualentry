@@ -24,3 +24,10 @@ export const Wrapper = styled('section')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   padding: '0 32px',
 }))
+
+export const Footer = styled('footer')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+`

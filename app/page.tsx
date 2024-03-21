@@ -1,14 +1,36 @@
 'use client'
+import { useState, useMemo, useEffect } from 'react'
 import { Breadcrumbs, Typography, Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { useInvoicesList } from '~/api'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { useInvoicesList, Invoice } from '~/api'
 import { DataTable } from '~/shared/datatable'
-import { LoadingIndicator, Header, HeaderIcon, Wrapper } from './_components/page-fragments'
+import { useDebounce } from '~/shared/hooks'
+import { LoadingIndicator, Header, HeaderIcon, Wrapper, Footer } from './_components/page-fragments'
 import { useColumnDefs } from './_components/column-defs'
 
+const invoicesCache = new Map<number, Invoice>()
+
 export default function Home() {
-  const { data, loading, error } = useInvoicesList(10, 0)
+  const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 750)
+  const [offset, setOffset] = useState(0)
+  const debouncedOffset = useDebounce(offset, 750)
+  const { data, loading, error } = useInvoicesList(debouncedSearchTerm, 10, debouncedOffset)
   const columnDefs = useColumnDefs()
+
+  const invoices = useMemo(() => {
+    if (Array.isArray(data?.invoices) && data.invoices.length) {
+      data.invoices.forEach((invoice) => {
+        invoicesCache.set(invoice.id, invoice)
+      })
+    }
+    return Array.from(invoicesCache.values())
+  }, [data?.invoices])
+
+  useEffect(() => {
+    invoicesCache.clear()
+  }, [debouncedSearchTerm])
 
   return (
     <main>
@@ -38,12 +60,24 @@ export default function Home() {
       <Wrapper>
         <DataTable
           cols={columnDefs}
-          rows={data?.invoices ?? []}
+          rows={invoices}
           totalRows={data?.invoices_aggregate.aggregate?.count ?? 0}
-          isLoading={false}
+          isLoading={!invoices.length && loading}
           rowSize="small"
+          onSearch={setSearchTerm}
+          onSetPage={setOffset}
         />
       </Wrapper>
+      <Footer>
+        <Button
+          variant="outlined"
+          endIcon={<KeyboardArrowDownIcon />}
+          onClick={() => setOffset(offset + 10)}
+          disabled={loading}
+        >
+          Show more
+        </Button>
+      </Footer>
     </main>
   )
 }
